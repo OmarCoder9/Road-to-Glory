@@ -1,0 +1,26 @@
+{
+  "name": "road-to-glory",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OmarCoder9/Road-to-Glory.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OmarCoder9/Road-to-Glory/issues"
+  },
+  "homepage": "https://github.com/OmarCoder9/Road-to-Glory#readme",
+  "description": "",
+  "dependencies": {
+    "mongoose": "^9.7.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
