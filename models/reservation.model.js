@@ -11,9 +11,9 @@ const reservationSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Event",
     },
-    ticketCount:{
-        type:Number,
-        default: 1
+    ticketCount: {
+      type: Number,
+      default: 1,
     },
     ticketPrice: {
       type: Number,
@@ -29,19 +29,19 @@ const reservationSchema = new mongoose.Schema(
       enum: ["unpaid", "paid", "refunded"],
       default: "unpaid",
     },
-    attendanceStatus:{
-        type: Boolean,
-        enum: [attendanceStatus.ATTENDED, attendanceStatus.PENDING, attendanceStatus.ABSENT],
-        default: attendanceStatus.PENDING
+    attendanceStatus: {
+      type: String,
+      enum: Object.values(attendanceStatus),
+      default: attendanceStatus.PENDING,
     },
-    ConfirmedAt:{
-        type:Date,
-        default:null
+    ConfirmedAt: {
+      type: Date,
+      default: null,
     },
-    cancelledAt:{
-        type:Date,
-        default:null
-    }
+    cancelledAt: {
+      type: Date,
+      default: null,
+    },
   },
   {
     timestamps: true,
