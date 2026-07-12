@@ -3,13 +3,26 @@ const httpStatusText = require("../utils/httpStatusText");
 
 const allowedTo = (...roles) => {
   return (req, res, next) => {
-    if (!req.currentUser || !roles.includes(req.currentUser.role)) {
-      const error = appError.create(
-        "You do not have permission to perform this action",
-        403,
-        httpStatusText.ERROR,
+  
+    if (!req.currentUser) {
+      return next(
+        appError.create(
+          "You are not logged in. Please log in to get access",
+          401,
+          httpStatusText.FAIL
+        )
       );
-      return next(error);
+    }
+
+  
+    if (!roles.includes(req.currentUser.role)) {
+      return next(
+        appError.create(
+          "You do not have permission to perform this action",
+          403,
+          httpStatusText.ERROR
+        )
+      );
     }
 
     next();

@@ -43,6 +43,11 @@ const eventSchema = new mongoose.Schema(
     capacity: {
       type: Number,
     },
+    
+    ticketPrice: {
+    type: Number,
+    required: true,
+},
 
     status: {
       type: String,

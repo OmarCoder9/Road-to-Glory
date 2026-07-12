@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const url = process.env.MONGO_URL;
+const url = "mongodb://127.0.0.1:27017/RoadToGlory"; 
 
 const DBconnect = () => {
   mongoose
@@ -9,5 +9,4 @@ const DBconnect = () => {
       console.log(e);
     });
 };
-
 module.exports = DBconnect;

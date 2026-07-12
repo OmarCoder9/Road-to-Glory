@@ -1,5 +1,5 @@
-module.exports = {
-    PENDING:"PENDING",
-    ATTENDED : "ATTENDED",
-    ABSENT:"ABSENT"
-}
+module.exports = Object.freeze({
+    PENDING: "PENDING",
+    ATTENDED: "ATTENDED",
+    ABSENT: "ABSENT"
+});
