@@ -10,6 +10,17 @@ router.use(
   allowedTo(userRoles.ORGANIZER, userRoles.ADMINISTRATOR),
 );
 
+router.route("/performance").get(organizerController.getEventPerformance);
+
+router.route("/tickets/validate").post(organizerController.validateTicketEntry);
+
+router.route("/events").get(organizerController.getAssignedEvents);
+
+router
+  .route("/events/:eventId")
+  .get(organizerController.getAssignedEventById)
+  .patch(organizerController.patchAssignedEvent);
+
 router
   .route("/:eventId")
   .get(organizerController.getRegistrationsForEvent)
