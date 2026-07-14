@@ -5,6 +5,8 @@ const cors = require("cors")
 const DBconnect = require("./config/DBConnect")
 const httpStatusText = require("./utils/httpStatusText")
 const organizerRoutes = require("./routes/organizer.routes")
+const attendeeRoutes = require("./routes/attendee.routes");
+const adminRoutes = require("./routes/admin.routes")
 
 DBconnect()
 
@@ -13,7 +15,8 @@ app.use(express.json())
 
 
 app.use("/api/organizer", organizerRoutes)
-
+app.use("/api/attendee", attendeeRoutes);
+app.use("/api/admin", adminRoutes)
 
 app.use((req, res, next) => {
   return res
