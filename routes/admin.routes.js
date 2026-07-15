@@ -4,7 +4,7 @@ const router = express.Router();
 const adminController = require("../controllers/admin.controller");
 const verifyToken = require("../middlewares/verifyToken");
 const allowedTo = require("../middlewares/allowedTo");
-const adminLogger = require("../middlewares/adminLogger.middleware");
+const adminLogger = require("../middlewares/adminLogger");
 
 const { ADMIN_ACTIONS } = require("../utils/adminActions");
 

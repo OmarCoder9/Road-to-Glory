@@ -7,7 +7,7 @@ const userRoles = require("../utils/userRole");
 
 router.use(
   verifyToken,
-  allowedTo(userRoles.ORGANIZER, userRoles.ADMINISTRATOR),
+  allowedTo(userRoles.ORGANIZER, userRoles.ADMIN),
 );
 
 router.route("/performance").get(organizerController.getEventPerformance);

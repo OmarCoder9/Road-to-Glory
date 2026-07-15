@@ -22,7 +22,7 @@ const isEventOwnedByOrganizer = async (currentUser, eventId) => {
   }
 
   return (
-    currentUser.role === userRoles.ADMINISTRATOR ||
+    currentUser.role === userRoles.ADMIN ||
     event.organizerId.equals(currentUser.id || currentUser._id)
   );
 };
@@ -30,7 +30,7 @@ const isEventOwnedByOrganizer = async (currentUser, eventId) => {
 exports.getAssignedEvents = async (req, res, next) => {
   try {
     const filter =
-      req.currentUser.role === userRoles.ADMINISTRATOR
+      req.currentUser.role === userRoles.ADMIN
         ? {}
         : { organizerId: getCurrentUserId(req.currentUser) };
 

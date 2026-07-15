@@ -14,7 +14,8 @@ const adminLoggerSchema = new mongoose.Schema({
   },
   targetId: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    required: false,
+    default: null
     },
   details: {
     type: String,
