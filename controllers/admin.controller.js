@@ -2,6 +2,7 @@ const User = require("../models/user.model");
 const Event = require("../models/event.model");
 const Reservation = require("../models/reservation.model");
 const Ticket = require("../models/ticket.model");
+const userRoles = require("../utils/userRole");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -64,7 +65,7 @@ const changeUserStatus = async (req, res) => {
 const getPendingOrganizers = async (req, res) => {
   try {
     const pendingOrganizers = await User.find({
-      role: "organizer",
+      role: userRoles.ORGANIZER,
       status: "pending",
     }).select("-password");
     return res.status(200).json({
@@ -79,18 +80,37 @@ const getPendingOrganizers = async (req, res) => {
 
 const approveOrganizer = async (req, res) => {
   try {
-    const { organizerId } = req.body;
-    const organizer = await User.findByIdAndUpdate(
-      organizerId,
-      { status: "active" },
-      { new: true, runValidators: true },
-    ).select("-password");
+    const { organizerId } = req.params;
+
+    const organizer = await User.findById(organizerId);
 
     if (!organizer) {
-      return res
-        .status(404)
-        .json({ status: "error", message: "Organizer not found" });
+      return res.status(404).json({
+        status: "error",
+        message: "Organizer not found",
+      });
     }
+
+    // Check that the user is actually an organizer
+    if (organizer.role !== userRoles.ORGANIZER) {
+      return res.status(400).json({
+        status: "error",
+        message: "User is not an organizer",
+      });
+    }
+
+    // Check if already approved
+    if (organizer.status === "active") {
+      return res.status(400).json({
+        status: "error",
+        message: "Organizer is already approved",
+      });
+    }
+
+    organizer.status = "active";
+    await organizer.save();
+
+    organizer.password = undefined;
 
     return res.status(200).json({
       status: "success",
@@ -98,7 +118,10 @@ const approveOrganizer = async (req, res) => {
       data: { organizer },
     });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error.message });
+    return res.status(500).json({
+      status: "error",
+      message: error.message,
+    });
   }
 };
 

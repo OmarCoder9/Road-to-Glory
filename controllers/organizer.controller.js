@@ -523,3 +523,73 @@ exports.patchAttendeeReservation = async (req, res, next) => {
     next(error);
   }
 };
+
+
+exports.createEvent = async (req, res, next) => {
+  try {
+    const {
+      title,
+      description,
+      category,
+      eventType,
+      location,
+      startDateTime,
+      endDateTime,
+      capacity,
+    } = req.body;
+
+    const event = await Event.create({
+      organizerId: getCurrentUserId(req.currentUser),
+      title,
+      description,
+      category,
+      eventType,
+      location,
+      startDateTime,
+      endDateTime,
+      capacity,
+      status: eventStatus.DRAFT,
+      isApproved: false,
+    });
+
+    return res.status(201).json({
+      status: httpStatusText.SUCCESS,
+      message: "Event created successfully",
+      data: event,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+exports.deleteAssignedEvent = async (req, res, next) => {
+  try {
+    const { eventId } = req.params;
+
+    if (!(await isEventOwnedByOrganizer(req.currentUser, eventId))) {
+      return next(
+        appError.create(
+          "You are not assigned to this event",
+          403,
+          httpStatusText.ERROR,
+        ),
+      );
+    }
+
+    const event = await Event.findByIdAndDelete(eventId);
+
+    if (!event) {
+      return next(
+        appError.create("Event not found", 404, httpStatusText.ERROR),
+      );
+    }
+
+    return res.status(200).json({
+      status: httpStatusText.SUCCESS,
+      message: "Event deleted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};

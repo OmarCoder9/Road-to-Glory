@@ -14,6 +14,17 @@ router.route("/performance").get(organizerController.getEventPerformance);
 
 router.route("/tickets/validate").post(organizerController.validateTicketEntry);
 
+router
+  .route("/events")
+  .post(organizerController.createEvent)
+  .get(organizerController.getAssignedEvents);
+
+router
+  .route("/events/:eventId")
+  .get(organizerController.getAssignedEventById)
+  .patch(organizerController.patchAssignedEvent)
+  .delete(organizerController.deleteAssignedEvent);
+
 router.route("/events").get(organizerController.getAssignedEvents);
 
 router

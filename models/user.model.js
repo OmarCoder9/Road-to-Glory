@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const userRoles = require("../utils/userRole");
 const validator = require("validator");
+const userStatus = require("../utils/userStatus");
 
 const userSchema = new mongoose.Schema({
   fullName: {
@@ -31,8 +32,8 @@ const userSchema = new mongoose.Schema({
 
     status: {
         type: String,
-        enum: ["active", "inactive"],
-        default: "active"
+        enum: Object.values(userStatus),
+        default: userStatus.ACTIVE
     },
 }, { timestamps: true });
 

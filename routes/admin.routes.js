@@ -5,11 +5,11 @@ const adminController = require("../controllers/admin.controller");
 const verifyToken = require("../middlewares/verifyToken");
 const allowedTo = require("../middlewares/allowedTo");
 const adminLogger = require("../middlewares/adminLogger");
+const userRoles = require("../utils/userRole");
 
 const { ADMIN_ACTIONS } = require("../utils/adminActions");
 
-router.use(verifyToken, allowedTo("admin"));
-
+router.use(verifyToken, allowedTo(userRoles.ADMIN));  
 router
   .route("/users")
   .get(adminLogger(ADMIN_ACTIONS.GET_USERS), adminController.getAllUsers)
@@ -21,7 +21,7 @@ router
 router.get("/organizers/pending", adminController.getPendingOrganizers);
 
 router.patch(
-  "/organizers/approve",
+  "/organizers/approve/:organizerId",
   adminLogger(ADMIN_ACTIONS.APPROVE_ORGANIZER),
   adminController.approveOrganizer,
 );
