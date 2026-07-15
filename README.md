@@ -8,7 +8,7 @@ Road to Glory is a backend platform developed to manage official football events
 
 # 📖 Project Overview
 
-The project was developed to provide a centralized backend solution for managing official football events. It allows attendees to register and reserve tickets, organizers to create and manage events, and administrators to monitor the entire platform through secure REST APIs.
+Road to Glory is a centralized backend solution for managing official football events. It allows attendees to register, reserve tickets, attend events, and submit feedback, while organizers manage events and administrators oversee the entire platform through secure RESTful APIs.
 
 ---
 
@@ -34,7 +34,7 @@ The project was developed to provide a centralized backend solution for managing
 ### 👤 Attendee
 
 - Register & Login
-- Browse Events
+- Browse Available Events
 - Reserve Tickets
 - View Reservation History
 - Access Digital Tickets
@@ -43,21 +43,18 @@ The project was developed to provide a centralized backend solution for managing
 
 ### 🏢 Organizer
 
-- Create Events
-- Update Events
-- Delete Events
-- Manage Attendees
+- Create & Manage Events
 - Validate Tickets
-- View Event Statistics
+- Manage Attendees
+- View Event Performance
 
 ### 👑 Administrator
 
 - Manage Users
 - Approve Organizers
-- Monitor Platform
-- Manage Events
-- View Reports
-- Track System Activity
+- Monitor Platform Activity
+- Override Events
+- View Reports & Analytics
 
 ---
 
@@ -78,7 +75,7 @@ The project was developed to provide a centralized backend solution for managing
 
 # 📂 Project Structure
 
-```
+```text
 Road-to-Glory
 │
 ├── config/
@@ -102,7 +99,7 @@ Clone the repository
 git clone https://github.com/OmarCoder9/Road-to-Glory.git
 ```
 
-Move into the project directory
+Move to the project directory
 
 ```bash
 cd Road-to-Glory
@@ -114,7 +111,7 @@ Install dependencies
 npm install
 ```
 
-Create the environment file
+Create your environment file
 
 ```bash
 cp .env.example .env
@@ -137,8 +134,30 @@ PORT=3000
 
 MONGO_URI=your_mongodb_connection_string
 
-JWT_SECRET=your_secret_key
+JWT_SECRET_KEY=your_secret_key
 ```
+
+---
+
+# 🌐 Base URL
+
+```text
+http://localhost:3000/api
+```
+
+---
+
+# 📡 Sample API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register a new user |
+| POST | `/api/auth/login` | Login user |
+| GET | `/api/attendee/events` | Get available events |
+| POST | `/api/attendee/events/:eventId/reserve` | Reserve a ticket |
+| GET | `/api/attendee/tickets` | Get attendee tickets |
+| GET | `/api/admin/analytics` | View platform analytics |
+| PATCH | `/api/admin/organizers/approve` | Approve organizer |
 
 ---
 
@@ -161,7 +180,7 @@ JWT_SECRET=your_secret_key
 - Protected Routes
 - Role-Based Authorization
 - Request Validation
-- Secure API Design
+- Secure REST API Design
 
 ---
 
@@ -169,7 +188,7 @@ JWT_SECRET=your_secret_key
 
 The project follows the **MVC (Model–View–Controller)** architecture.
 
-```
+```text
 Client
    │
 Routes
@@ -183,22 +202,6 @@ MongoDB
 
 ---
 
-# 📡 REST API
-
-The API provides endpoints for:
-
-- Authentication
-- Users
-- Organizers
-- Events
-- Reservations
-- Tickets
-- Attendance
-- Feedback
-- Reports
-
----
-
 # 🚀 Future Improvements
 
 - Email Verification
@@ -206,7 +209,7 @@ The API provides endpoints for:
 - Refresh Tokens
 - Image Upload
 - Payment Integration
-- Swagger Documentation
+- Swagger API Documentation
 - Unit Testing
 - Docker Support
 
