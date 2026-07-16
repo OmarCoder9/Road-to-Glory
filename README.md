@@ -8,7 +8,7 @@ Road to Glory is a backend platform developed to manage official football events
 
 # 📖 Project Overview
 
-Road to Glory is a centralized backend solution for managing official football events. It allows attendees to register, reserve tickets, attend events, and submit feedback, while organizers manage events and administrators oversee the entire platform through secure RESTful APIs.
+Road to Glory is a centralized backend solution for managing official football events. It allows attendees to register, reserve tickets, attend events, and submit feedback, while organizers create and manage events, and administrators oversee the entire platform through secure RESTful APIs.
 
 ---
 
@@ -38,12 +38,14 @@ Road to Glory is a centralized backend solution for managing official football e
 - Reserve Tickets
 - View Reservation History
 - Access Digital Tickets
-- Attend Events
 - Submit Feedback
 
 ### 🏢 Organizer
 
-- Create & Manage Events
+- Create Events
+- Update Events
+- Delete Events
+- View Assigned Events
 - Validate Tickets
 - Manage Attendees
 - View Event Performance
@@ -52,8 +54,8 @@ Road to Glory is a centralized backend solution for managing official football e
 
 - Manage Users
 - Approve Organizers
-- Monitor Platform Activity
 - Override Events
+- Monitor Platform Activity
 - View Reports & Analytics
 
 ---
@@ -147,29 +149,81 @@ http://localhost:3000/api
 
 ---
 
-# 📡 Sample API Endpoints
+# 📡 API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/register` | Register a new user |
-| POST | `/api/auth/login` | Login user |
-| GET | `/api/attendee/events` | Get available events |
-| POST | `/api/attendee/events/:eventId/reserve` | Reserve a ticket |
-| GET | `/api/attendee/tickets` | Get attendee tickets |
-| GET | `/api/admin/analytics` | View platform analytics |
-| PATCH | `/api/admin/organizers/approve` | Approve organizer |
+## 🔐 Authentication
+
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/auth/register` | Public | Register a new user |
+| POST | `/api/auth/login` | Public | Login and receive JWT token |
+
+---
+
+## 👤 Attendee APIs
+
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| GET | `/api/attendee/events` | Public | Browse available events |
+| POST | `/api/attendee/events/:eventId/reserve` | Attendee | Reserve a ticket |
+| GET | `/api/attendee/reservations` | Attendee | View reservation history |
+| GET | `/api/attendee/tickets` | Attendee | View issued tickets |
+| DELETE | `/api/attendee/reservations/:reservationId` | Attendee | Cancel reservation |
+| POST | `/api/attendee/feedback` | Attendee | Submit event feedback |
+
+---
+
+## 🏢 Organizer APIs
+
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| POST | `/api/organizer/events` | Organizer / Admin | Create a new event |
+| GET | `/api/organizer/events` | Organizer / Admin | Get assigned events |
+| GET | `/api/organizer/events/:eventId` | Organizer / Admin | Get event details |
+| PATCH | `/api/organizer/events/:eventId` | Organizer / Admin | Update event |
+| DELETE | `/api/organizer/events/:eventId` | Organizer / Admin | Delete event |
+| GET | `/api/organizer/performance` | Organizer / Admin | View event performance |
+| POST | `/api/organizer/tickets/validate` | Organizer / Admin | Validate attendee ticket |
+| GET | `/api/organizer/:eventId` | Organizer / Admin | Get registrations for an event |
+| PATCH | `/api/organizer/:eventId` | Organizer / Admin | Update registration status |
+| GET | `/api/organizer/` | Organizer / Admin | Get all attendees |
+| PATCH | `/api/organizer/` | Organizer / Admin | Update attendee reservation |
+
+---
+
+## 👑 Administrator APIs
+
+| Method | Endpoint | Access | Description |
+|--------|----------|--------|-------------|
+| GET | `/api/admin/users` | Admin | Get all users |
+| PATCH | `/api/admin/users` | Admin | Change user status |
+| GET | `/api/admin/organizers/pending` | Admin | Get pending organizers |
+| PATCH | `/api/admin/organizers/approve/:organizerId` | Admin | Approve organizer |
+| PATCH | `/api/admin/events/override/:eventId` | Admin | Override any event |
+| GET | `/api/admin/analytics` | Admin | View platform analytics |
+
+---
+
+# 🔒 Authorization
+
+| Role | Permissions |
+|------|-------------|
+| Public | Register, Login, Browse Events |
+| Attendee | Reserve tickets, View reservations, View tickets, Cancel reservations, Submit feedback |
+| Organizer | Create, Update, Delete events, Manage attendees, Validate tickets, View performance |
+| Admin | Full system access including users, organizers, events, analytics, and reports |
 
 ---
 
 # 📌 Main Modules
 
 - Authentication & User Management
-- Organizer Approval
 - Event Management
 - Ticket Reservation
 - Attendance Management
 - Feedback System
-- Reporting & Analytics
+- Organizer Management
+- Reports & Analytics
 
 ---
 
@@ -220,4 +274,3 @@ MongoDB
 - Omar
 - Moataz
 - Nada
-
