@@ -191,7 +191,7 @@ const getPlatformAnalytics = async (req, res) => {
           totalTickets: { $sum: 1 },
           actualAttendance: {
             $sum: {
-              $cond: [{ $eq: ["$status", "used"] }, 1, 0], // تأكد أن اسم الحقل في الداتا بيز هو isValid
+              $cond: [{ $eq: ["$status", "used"] }, 1, 0],
             },
           },
         },
